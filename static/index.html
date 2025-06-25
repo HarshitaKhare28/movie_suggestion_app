@@ -5,22 +5,26 @@
   <title>Movie Suggestion App</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gradient-to-r from-indigo-800 to-blue-400 min-h-screen flex flex-col items-center justify-center p-6 text-white font-sans">
+<body class="bg-gradient-to-br from-indigo-900 via-blue-700 to-purple-800 min-h-screen flex flex-col items-center justify-center px-6 py-10 text-white font-sans">
 
-  <h1 class="text-3xl font-bold mb-6">🎬 Movie Suggestion App</h1>
+  <h1 class="text-4xl font-extrabold mb-8 drop-shadow-lg">🎬 Movie Suggestion App</h1>
 
-  <div class="flex flex-col items-center gap-4 w-full max-w-md">
-    <label for="genre" class="text-lg">Choose a genre:</label>
-    <select id="genre" class="p-2 rounded bg-white text-black w-full shadow">
+  <div class="flex flex-col items-center gap-4 w-full max-w-xl bg-white/10 backdrop-blur-lg p-6 rounded-xl shadow-xl">
+    <label for="genre" class="text-lg font-medium text-white">Choose a genre:</label>
+
+    <select id="genre" class="p-3 rounded bg-white/80 text-black w-full shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500">
       <option value="action">Action</option>
       <option value="comedy">Comedy</option>
       <option value="romance">Romance</option>
       <option value="sci-fi">Sci-Fi</option>
     </select>
-    <button onclick="fetchMovies()" class="bg-blue-600 hover:bg-blue-800 px-4 py-2 rounded text-white w-full">Get Suggestions</button>
+
+    <button onclick="fetchMovies()" class="bg-blue-600 hover:bg-blue-800 px-6 py-3 rounded text-white font-semibold shadow-md transition-all duration-300 hover:scale-105 active:scale-95">
+      🎥 Get Movie Suggestions
+    </button>
   </div>
 
-  <div id="movieList" class="mt-8 grid gap-4 w-full max-w-md"></div>
+  <div id="movieList" class="mt-10 grid gap-6 w-full max-w-xl"></div>
 
   <script>
     async function fetchMovies() {
@@ -33,12 +37,12 @@
       if (data.movies.length > 0) {
         data.movies.forEach(movie => {
           const div = document.createElement("div");
-          div.className = "bg-white text-black p-4 rounded shadow text-center font-semibold";
-          div.innerText = movie;
+          div.className = "bg-white/20 backdrop-blur-sm text-white px-6 py-4 rounded-xl shadow-lg text-center text-xl font-semibold hover:bg-white/30 hover:scale-105 transition-transform";
+          div.innerText = `🎬 ${movie}`;
           list.appendChild(div);
         });
       } else {
-        list.innerHTML = `<div class="bg-red-200 text-black p-4 rounded shadow text-center">No suggestions available for "${data.genre}"</div>`;
+        list.innerHTML = `<div class="bg-red-300 text-black px-4 py-3 rounded-lg shadow text-center">No suggestions available for "${data.genre}"</div>`;
       }
     }
   </script>
