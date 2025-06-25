@@ -7,7 +7,6 @@ import os
 
 app = FastAPI()
 
-# Enable CORS (only needed if accessing from file:///)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -15,10 +14,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Mount static directory for serving HTML
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# Serve frontend (index.html)
+
 @app.get("/")
 def serve_frontend():
     return FileResponse(os.path.join("static", "index.html"))
