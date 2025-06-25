@@ -29,7 +29,7 @@
   <script>
     async function fetchMovies() {
       const genre = document.getElementById("genre").value;
-      const res = await fetch(`http://127.0.0.1:8000/movies?genre=${genre}`);
+      const res = await fetch(`https://movie-suggestion-app.onrender.com/movies?genre=${genre}`);
       const data = await res.json();
       const list = document.getElementById("movieList");
       list.innerHTML = "";
