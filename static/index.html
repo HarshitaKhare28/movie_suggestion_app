@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Suggestion App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-indigo-800 to-blue-400 min-h-screen flex flex-col items-center justify-center p-6 text-white font-sans">
+
+  <h1 class="text-3xl font-bold mb-6">🎬 Movie Suggestion App</h1>
+
+  <div class="flex flex-col items-center gap-4 w-full max-w-md">
+    <label for="genre" class="text-lg">Choose a genre:</label>
+    <select id="genre" class="p-2 rounded bg-white text-black w-full shadow">
+      <option value="action">Action</option>
+      <option value="comedy">Comedy</option>
+      <option value="romance">Romance</option>
+      <option value="sci-fi">Sci-Fi</option>
+    </select>
+    <button onclick="fetchMovies()" class="bg-blue-600 hover:bg-blue-800 px-4 py-2 rounded text-white w-full">Get Suggestions</button>
+  </div>
+
+  <div id="movieList" class="mt-8 grid gap-4 w-full max-w-md"></div>
+
+  <script>
+    async function fetchMovies() {
+      const genre = document.getElementById("genre").value;
+      const res = await fetch(`http://127.0.0.1:8000/movies?genre=${genre}`);
+      const data = await res.json();
+      const list = document.getElementById("movieList");
+      list.innerHTML = "";
+
+      if (data.movies.length > 0) {
+        data.movies.forEach(movie => {
+          const div = document.createElement("div");
+          div.className = "bg-white text-black p-4 rounded shadow text-center font-semibold";
+          div.innerText = movie;
+          list.appendChild(div);
+        });
+      } else {
+        list.innerHTML = `<div class="bg-red-200 text-black p-4 rounded shadow text-center">No suggestions available for "${data.genre}"</div>`;
+      }
+    }
+  </script>
+</body>
+</html>
